@@ -3,8 +3,8 @@ import Products from '@/components/Product'
 import React from 'react'
 
 export default function ProductPage({searchParams}) {
-  const selectedColor = searchParams.color
-  const selectedSize = searchParams.size
+  const selectedColor = searchParams.color || "black"
+  const selectedSize = searchParams.size  || "M"
   return (
     <>
     <section className='w-full h-screen flex items-center justify-center bg-gray-200 '>
