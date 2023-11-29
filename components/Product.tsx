@@ -1,7 +1,7 @@
-"use client";
 import Image from 'next/image';
 import React from 'react'
-import { useState,useEffect } from 'react';
+import Link from 'next/link';
+import { ProductsInfo } from '@/types';
 
 const imageUrls = {
   black:"/black.jpg",
@@ -12,15 +12,18 @@ const imageUrls = {
 const sizeVariants = ["X","M","P"]
 const colorVariants = ["black","white","blue"]
 
-export default function Products() {
-    const [selectedSize,setSelectedSize] = useState("M")
-    const [selectedColor,setSelectedColor] = useState("black")
+export default function Products({selectedColor,selectedSize}:ProductsInfo) {
+
+    const selectedColor2= selectedColor
+    const selectedSize2= selectedSize
+    
+    
 
   return (
     <div className='flex flex-grow '>
 
       <div className='flex justify-center p-5'>
-        <Image src={imageUrls[selectedColor]} width={200}  height={110} alt='acmeShirt'/>
+        <Image src={imageUrls[selectedColor2]} width={200}  height={110} alt='acmeShirt'/>
       </div>
 
       <div className='flex-1'>
@@ -33,14 +36,15 @@ export default function Products() {
             <h2 className='text-md uppercase mb-2'>Color</h2>
             <div className='flex gap-2'>
               {colorVariants.map((color,index)=>(
-                <button key={index}
+                <Link key={index}
+                href={`?color=${color}&size=${selectedSize2}`}
                 className={`bg-gray-100 px-4 py-1
                 rounded-full border-2 ${selectedColor === color 
                   ? "border-blue-500"
                   : "border-gray-200"}`}
-                  onClick={() => setSelectedColor(color)}>
+                  >
                     {color.charAt(0).toLocaleUpperCase() + color.slice(1)}
-                </button>
+                </Link>
               ))}
             </div>
           </section>
@@ -49,14 +53,14 @@ export default function Products() {
             <h2 className='text-md uppercase'>Sizes</h2>
             <div className='flex gap-2'>
               {sizeVariants.map((size,index)=>(
-                <button key={index}
+                <Link key={index}
+                href={`?color=${selectedColor2}&size=${size}`}
                 className={`bg-gray-100 px-4 py-1
                 rounded-full border-2 ${selectedSize === size
                   ? "border-blue-500"
-                  : "border-gray-200"}`}
-                  onClick={() => setSelectedSize(size)}>
+                  : "border-gray-200"}`}>
                     {size.toUpperCase()}
-                </button>
+                </Link>
               ))}
 
             </div>
